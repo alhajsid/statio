@@ -2,12 +2,12 @@
 
 import React from "react";
 import { Sidebar, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider } from "@/components/ui/sidebar";
-
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { LayoutDashboard, Settings, BarChart3, Image as ImageIcon, Video } from "lucide-react";
+import { LayoutDashboard, Settings, Image as ImageIcon, Video } from "lucide-react";
 import Image from "next/image";
 import { getMetaAnalytics } from "@/services/meta-ads";
+import Link from "next/link";
 
 export default function Home() {
   const handleConnectGoogle = () => {
@@ -35,41 +35,35 @@ export default function Home() {
           <SidebarContent>
             <SidebarGroup>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton href="#">
-                    <LayoutDashboard className="mr-2" />
-                    Dashboard
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton href="#">
-                    <ImageIcon className="mr-2" />
-                    Creatives
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton href="#">
-                    <Video className="mr-2" />
-                    Videos
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton href="#">
-                    <BarChart3 className="mr-2" />
-                    Analytics
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <Link href={"/dashboard"}>
+                  <SidebarMenuButton>
+                      <LayoutDashboard className="mr-2" />
+                      Dashboard
+                    </SidebarMenuButton>
+                </Link>
+                <Link href={"/creatives"}>
+                  <SidebarMenuButton>
+                      <ImageIcon className="mr-2" />
+                      Creatives
+                    </SidebarMenuButton>
+                </Link>
+                <Link href={"/campaigns"}>
+                  <SidebarMenuButton>
+                      <Video className="mr-2" />
+                      Campaigns
+                    </SidebarMenuButton>
+                </Link>
+                
               </SidebarMenu>
             </SidebarGroup>
             <Separator className="my-2" />
             <SidebarGroup>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton href="#">
+                <Link href={"/settings"}>
+                  <SidebarMenuButton>
                     <Settings className="mr-2" />
                     Settings
                   </SidebarMenuButton>
-                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroup>
           </SidebarContent>
@@ -83,3 +77,4 @@ export default function Home() {
     </SidebarProvider>
   );
 }
+
