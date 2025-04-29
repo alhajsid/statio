@@ -1,7 +1,8 @@
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"; // Import Toaster
+import { Toaster } from "@/components/ui/toaster";
+import { SidebarProvider } from "@/components/providers/sidebar-provider";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,21 +15,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'AdCreative Insights', // Update title
-  description: 'Analyze ad creative performance across Meta and Google Ads.', // Update description
+  title: 'AdCreative Insights',
+  description: 'Analyze ad creative performance across Meta and Google Ads.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" suppressHydrationWarning> {/* Add suppressHydrationWarning for potential server/client mismatch during development */}
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <Toaster /> {/* Add Toaster component */}
+        <SidebarProvider>
+          {children}
+          <Toaster />
+        </SidebarProvider>
       </body>
     </html>
-  );
+  )
 }
