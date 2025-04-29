@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 
 import React from "react";
 import { SidebarProvider, Sidebar, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
