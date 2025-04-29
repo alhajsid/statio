@@ -1,121 +1,68 @@
-'use client'; // Add this directive to make the component a Client Component
+"use client";
 
+import React from "react";
 import { SidebarProvider, Sidebar, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { LayoutDashboard, Settings, BarChart3, Image as ImageIcon, Video } from "lucide-react";
-import Image from 'next/image';
+import Image from "next/image";
+import { getMetaAnalytics } from "@/services/meta-ads";
 
 export default function Home() {
-  // TODO: Implement OAuth connection logic
   const handleConnectGoogle = () => {
     console.log("Connect Google Ads clicked");
     // Add OAuth flow initiation here
   };
 
-  const handleConnectMeta = () => {
+  const handleConnectMeta = async () => {
     console.log("Connect Meta Ads clicked");
-    // Add OAuth flow initiation here
+    const result = await getMetaAnalytics();
+    console.log(result);
   };
 
   return (
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <div className="flex items-center gap-2">
-             {/* Placeholder for logo - replace with actual logo */}
-             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
-              AI
-            </div>
-            <h1 className="text-lg font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-              AdCreative Insights
-            </h1>
-          </div>
+          <div className="flex items-center gap-2"><Image src="/logo.svg" alt="Logo" width={32} height={32} />
+            <h1 className="text-lg font-bold">Statio</h1></div>
+          <Separator className="my-2" />
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Dashboard" isActive>
-                  <LayoutDashboard />
-                  <span>Dashboard</span>
+          <SidebarGroup><SidebarMenu><SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <LayoutDashboard className="mr-2" />
+                  Dashboard
                 </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                {/* Updated icon to one available in lucide-react */}
-                <SidebarMenuButton tooltip="Analytics">
-                  <BarChart3 />
-                  <span>Analytics</span>
+              </SidebarMenuItem><SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <ImageIcon className="mr-2" />
+                  Creatives
                 </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                 <SidebarMenuButton tooltip="Image Creatives">
-                  <ImageIcon />
-                  <span>Image Creatives</span>
+              </SidebarMenuItem><SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Video className="mr-2" />
+                  Videos
                 </SidebarMenuButton>
-              </SidebarMenuItem>
-               <SidebarMenuItem>
-                 <SidebarMenuButton tooltip="Video Creatives">
-                  <Video />
-                  <span>Video Creatives</span>
+              </SidebarMenuItem><SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <BarChart3 className="mr-2" />
+                  Analytics
                 </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
+              </SidebarMenuItem></SidebarMenu></SidebarGroup>
+          <Separator className="my-2" />
+          <SidebarGroup><SidebarMenu><SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Settings className="mr-2" />
+                  Settings
+                </SidebarMenuButton>
+              </SidebarMenuItem></SidebarMenu></SidebarGroup>
         </SidebarContent>
-        <SidebarHeader className="mt-auto">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Settings">
-                <Settings />
-                <span>Settings</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
+        <SidebarInset></SidebarInset>
       </Sidebar>
-      <SidebarInset>
-        <header className="flex items-center justify-between p-4 border-b">
-          <div className="flex items-center gap-2">
-             <SidebarTrigger className="md:hidden" />
-             <h2 className="text-xl font-semibold">Dashboard</h2>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={handleConnectGoogle}>
-              Connect Google Ads
-            </Button>
-            <Button variant="outline" onClick={handleConnectMeta}>
-              Connect Meta Ads
-            </Button>
-          </div>
-        </header>
-        <main className="flex-1 p-6 bg-secondary">
-           {/* Placeholder Content - Replace with actual dashboard components */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             <div className="bg-card rounded-lg shadow-sm p-4 border">
-               <h3 className="text-lg font-semibold mb-2">Welcome!</h3>
-               <p className="text-muted-foreground">Connect your ad accounts to get started.</p>
-             </div>
-             <div className="bg-card rounded-lg shadow-sm p-4 border">
-               <h3 className="text-lg font-semibold mb-2">Top Performing Creative</h3>
-               <p className="text-muted-foreground">Connect accounts to see data.</p>
-                <Image src="https://picsum.photos/300/200" alt="Placeholder Ad Creative" width={300} height={200} className="mt-4 rounded-md" />
-             </div>
-             <div className="bg-card rounded-lg shadow-sm p-4 border">
-               <h3 className="text-lg font-semibold mb-2">Creative Fatigue Alert</h3>
-               <p className="text-muted-foreground">No data available yet.</p>
-             </div>
-          </div>
-           <Separator className="my-6" />
-            <div className="bg-card rounded-lg shadow-sm p-4 border">
-               <h3 className="text-lg font-semibold mb-4">Performance Overview</h3>
-               <p className="text-muted-foreground">Connect your ad accounts to view performance charts and tables.</p>
-               {/* Placeholder for table/chart */}
-               <div className="h-64 bg-muted rounded-md mt-4 flex items-center justify-center text-muted-foreground">
-                 Chart/Table Area
-               </div>
-            </div>
-        </main>
+      <div className="flex flex-col gap-4 p-4">
+        <Button onClick={handleConnectGoogle}>Connect to Google Ads</Button>
+        <Button onClick={handleConnectMeta}>Connect to Meta Ads</Button>
       </SidebarInset>
     </SidebarProvider>
   );
